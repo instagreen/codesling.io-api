@@ -9,7 +9,6 @@ import testCasesRouter from '../components/testCases/testCasesRouter';
 import historyRouter from '../components/histories/historyRouter';
 import msgRouter from '../components/msgs/msgRouter';
 
-
 const router = express.Router();
 
 router.use('/auth', authRouter);
@@ -20,5 +19,8 @@ router.use('/usersChallenges', userChallengeRouter);
 router.use('/testCases', testCasesRouter);
 router.use('/history', historyRouter);
 router.use('/messages', msgRouter);
+
+//TEST
+router.get('/test', (req, res) => res.send('hello'));
 
 export default router;
