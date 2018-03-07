@@ -22,6 +22,7 @@ export const addChallengeController = async (req, res) => {
     return res.status(200).send(rows[0]);
   } catch (err) {
     error('addChallengeController - error= ', error);
+    res.status(404).send(err);
   }
 };
 

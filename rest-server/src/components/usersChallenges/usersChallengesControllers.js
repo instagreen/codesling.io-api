@@ -14,6 +14,7 @@ export const addUserChallengeController = async (req, res) => {
     return res.status(200).send(data);
   } catch (err) {
     error('addUserChallengeController - error= ', err);
+    res.status(404).send(err);
   }
 };
 
@@ -24,5 +25,6 @@ export const fetchAllUserChallengesController = async (req, res) => {
     return res.status(200).send(data);
   } catch (err) {
     error('fetchAllUserChallengesController - error= ', err);
+    res.status(404).send(err);
   }
 }

@@ -14,6 +14,6 @@ export const fetchAllUserController = async (req, res) => {
     return res.status(200).send(data);
   } catch (err) {
     error('fetchAllUserController - error= ', error);
-    throw new Error(err);
+    res.status(404).send(err);
   }
 };
