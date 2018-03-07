@@ -18,5 +18,6 @@ export const fetchMessagesController = async (req, res) => {
     return res.status(200).send(rows);
   } catch (err) {
     error('error fetching messages ', err);
+    res.status(404).send(err);
   }
 };

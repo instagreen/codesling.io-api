@@ -13,5 +13,6 @@ export const addTestCaseController = async (req, res) => {
     return res.status(200).send(data);
   } catch (err) {
     error('addTestCaseController - error= ', err);
+    res.status(404).send(err);
   }
 };
