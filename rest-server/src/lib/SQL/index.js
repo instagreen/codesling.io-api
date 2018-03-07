@@ -219,6 +219,8 @@ export const createTestCaseTable = async () => {
         id SERIAL,
         content VARCHAR(255) NOT NULL,
         challenge_id INT NOT NULL,
+        input VARCHAR(255) NOT NULL,
+        output VARCHAR(255) NOT NULL,
         CONSTRAINT testCases_pk
           PRIMARY KEY(id),
         CONSTRAINT fk_testCases_challenge_id 
