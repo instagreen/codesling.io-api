@@ -1,6 +1,7 @@
 import db from '../../config/database';
 import {
-  fetchAllUserQuery
+  fetchAllUserQuery,
+  fetchUserQuery,
 } from './userQueries';
 import {
   success,
@@ -17,3 +18,14 @@ export const fetchAllUserController = async (req, res) => {
     res.status(404).send(err);
   }
 };
+
+export const fetchUsersFromSearch = async (req, res) => {
+  try {
+    const data = await fetchUserQuery(req.params.email);
+    success('fetchUserQuery - successfully fetched data ', data);
+    return res.status(200).send(data);
+  } catch (err) {
+    error('fetchAllUserController - error= ', error);
+    res.status(404).send(err);
+  }
+}
