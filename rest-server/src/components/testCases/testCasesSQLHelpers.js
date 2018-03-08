@@ -1,21 +1,21 @@
 export const addTestCaseHelper = ({ content, challenge_id, input, output }) => {
-  console.log('whats coming in', content, challenge_id, input, output)
   let inputString = JSON.stringify(input);
   let outputString = JSON.stringify(output);
-  console.log('----strings?', typeof inputString, typeof outputString);
+  console.log('--inputString, outputString--', inputString, outputString);
   return `
     INSERT INTO testCases (content, challenge_id, input, output)
-    VALUES ('${content}', ${challenge_id}, ${inputString}, ${outputString})
+    VALUES ('${content}', ${challenge_id}, '${inputString}', '${outputString}')
   `;
 };
 
-// helper to add input & output to testcases table
+// retrieve record from testCases
+export const getTestCaseHelper = ({ challenge_id }) => {
+  return `
+    SELECT input, output 
+    FROM testCases 
+    WHERE challenge_id = ${challenge_id}
+  `;
+};
 
-// OG 
-// export const addTestCaseHelper = ({ content, challenge_id }) => {
-//   return `
-//     INSERT INTO testCases (content, challenge_id,)
-//     VALUES ('${content}', ${challenge_id})
-//   `;
-// };
+
 

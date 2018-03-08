@@ -1,6 +1,7 @@
 import db from '../../config/database';
 import {
-  addTestCaseHelper
+  addTestCaseHelper,
+  getTestCaseHelper
 } from './testCasesSQLHelpers';
 import {
   success,
@@ -15,5 +16,17 @@ export const addTestCaseQuery = async (body) => {
     return data;
   } catch (err) {
     error('addTestCaseQuery - error= ', err);
+  }
+};
+
+// getTestCaseQuery
+export const getTestCaseQuery = async (params) => {
+  try {
+    const queryString = getTestCaseHelper(params);
+    const data = db.queryAsync(queryString);
+    success('getTestCaseQuery - successfully getted test case ', data);
+    return data;
+  } catch (err) {
+    error('getTestCaseQuery - error= ', err);
   }
 };
