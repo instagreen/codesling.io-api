@@ -6,6 +6,7 @@ import {
 } from './friendsSQLHelpers';
 
 export const friendQuery = async (payload, url) => {
+  console.log(payload, url);
   if (url === '/addFriend') {
     return await globalQueryHelper(payload, addFriendHelper, 'addFriendQuery');
   } else if (url.includes('/deleteFriend')) {
