@@ -36,6 +36,7 @@ export const serverLeave = ({ io, room }) => {
 };
 
 export const serverRun = ({ io, room }, { stdout, email }) => {
+  console.log('serverEvents.js stdout, typeof, split', stdout, typeof stdout, Array.isArray(stdout.split('\n')));
   io
     .in(room.get('id'))
     .emit('server.run', { stdout, email });

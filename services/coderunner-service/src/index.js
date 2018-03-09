@@ -15,8 +15,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/submit-code', (req, res) => {
+  console.log('--req.body.code from services index.js--', req.body.code);
+  // TEST
+  const withInvoc = `${req.body.code} add2Nums(1,2); add2Nums(3,4); add2Nums(5,6);`;
+  // TEST
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    writeFile(path, req.body.code, (errWritingFile) => {
+    writeFile(path, withInvoc, (errWritingFile) => {
       if (errWritingFile) {
         res.send(errWritingFile);
       } else {

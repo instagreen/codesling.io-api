@@ -5,3 +5,11 @@ export const addChallengeHelper = ({ title, content, difficulty }) => {
     RETURNING id, title, content, difficulty
   `;
 }
+
+export const getChallengeHelper = ({ challenge_id }) => {
+  return `
+    SELECT title 
+    FROM challenges 
+    WHERE id = ${challenge_id}
+  `;
+};

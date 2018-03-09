@@ -22,5 +22,7 @@ router.use('/messages', msgRouter);
 
 //TEST
 router.get('/test', (req, res) => res.send('hello'));
+router.get('/slingSubmit', (req, res) => res.send('hello from slingSubmit'))
+
 
 export default router;

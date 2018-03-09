@@ -1,7 +1,8 @@
 import express from 'express';
 
 import {
-  addChallengeController
+  addChallengeController,
+  getChallengeController
 } from './challengeControllers';
 
 const router = express.Router();
@@ -9,4 +10,6 @@ const router = express.Router();
 router.route('/')
   .post(addChallengeController);
 
+router.route('/:challenge_id')
+  .get(getChallengeController);
 export default router;
