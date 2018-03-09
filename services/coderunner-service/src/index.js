@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/submit-code', (req, res) => {
-  console.log('--*********req.body.code from services index.js--', req.body.code, req.body.funcName, req.body.testCases);
+  console.log('--*********req.body from services index.js--', req.body.code, req.body.funcName, req.body.testCases[0].input, req.body.testCases[0].output, req.body.id);
   // TEST
   const withInvoc = `${req.body.code} add2Nums(1,2); add2Nums(3,4); add2Nums(5,6);`;
   // TEST
