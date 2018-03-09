@@ -15,10 +15,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/submit-code', (req, res) => {
-  console.log('--*********req.body from services index.js--', req.body.code, req.body.funcName, req.body.testCases[0].input, req.body.testCases[0].output, req.body.id);
-  // TEST
-  const withInvoc = `${req.body.code} add2Nums(1,2); add2Nums(3,4); add2Nums(5,6);`;
-  // TEST
+  const fn = req.body.funcName;
+  const inputs = JSON.parse(req.body.testCases[0].input);
+  const outputs = JSON.parse(req.body.testCases[0].output);
+
+  console.log('----',outputs[0], typeof outputs[0]);
+
+  const withInvoc = `${req.body.code} ${fn}(${inputs[0]},${inputs[1]});`;
+  //
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
     writeFile(path, withInvoc, (errWritingFile) => {
       if (errWritingFile) {
@@ -26,13 +30,19 @@ app.post('/submit-code', (req, res) => {
       } else {
         execFile('node', [path], (errExecutingFile, stdout, stderr) => {
           if (errExecutingFile) {
+            
             let stderrFormatted = stderr.split('\n');
             stderrFormatted.shift();
             stderrFormatted = stderrFormatted.join('\n');
             res.send(stderrFormatted);
           } else {
-            res.write(JSON.stringify(stdout));
-            res.send();
+            //
+              if (stdout == outputs[0]) {
+                res.write(`GREAT JOB! \n expect(${fn}(${inputs[0]},${inputs[1]})).to.equal(${stdout}) \n ${fn}(${inputs[0]},${inputs[1]}) returns ${stdout}`);
+                res.send();
+              } else {
+                res.send(`PACK YOUR BAGS! \n expect(${fn}(${inputs[0]},${inputs[1]})).to.equal(${outputs[0]}) \n ${fn}(${inputs[0]},${inputs[1]}) returns ${stdout}`);
+              }
           }
         });
       }
