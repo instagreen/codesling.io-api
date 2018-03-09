@@ -1,7 +1,8 @@
 export const addTestCaseHelper = ({ content, challenge_id, input, output }) => {
-  let inputString = JSON.stringify(input);
-  let outputString = JSON.stringify(output);
-  console.log('--inputString, outputString--', inputString, outputString);
+  let inputString = `[${input}]`;
+  let outputString = `[${output}]`;
+  
+  console.log('types', Array.isArray(JSON.parse(inputString)[0]), typeof JSON.parse(outputString));
   return `
     INSERT INTO testCases (content, challenge_id, input, output)
     VALUES ('${content}', ${challenge_id}, '${inputString}', '${outputString}')

@@ -1,11 +1,24 @@
+// const startingText =
+// `function hello() {
+//   console.log('hello!');
+// }
+
+// hello();
+// `;
+
 const startingText =
-`function hello() {
-  console.log('hello!');
+`function nameOfFunc() {
+  console.log();
+}`;
+
+const getFuncName = async () => {
+  // try {
+  //     const data = await axios.get(/**/);
+  //     console.log('data from await axios', data);
+  //   } catch (err) {
+  //     console.log('err from Sling', err);
+  //   }
 }
-
-hello();
-`;
-
 /**
  *
  *  Rooms store

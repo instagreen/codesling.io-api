@@ -40,16 +40,41 @@ const clientDisconnect = ({ io, room }) => {
 
 const clientRun = async ({ io, room }, payload) => {
   success('running code from client. room.get("text") = ', room.get('text'));
-  const { text, email } = payload;
+  const { text, email, id } = payload;
+  console.log('text, email, id', text, email, id);
   const url = process.env.CODERUNNER_SERVICE_URL;
-
   try {
-    const { data } = await axios.post(`${url}/submit-code`, { code: text });
+    const testCases = await axios.get(`http://localhost:3396/testCases/${id}`);
+    const funcName = await axios.get(`http://localhost:3396/challenges/${id}`);
+    const { data } = await axios.post(`${url}/submit-code`, {
+      code: text, testCases: testCases.data.rows, funcName: funcName.data, id,
+    });
     const stdout = data;
+    console.log('stdout', stdout);
     serverRun({ io, room }, { stdout, email });
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
   }
+
+  // try {
+  //   // const urlRest = process.env.REST_SERVER_URL; :4990
+  //   const funcName = await axios.get(`http://localhost:3396/challenges/39`);
+  //   // const stdout2 = funcName;
+  //   // console.log('stdout2', stdout2);
+  //   console.log('response!!!!!!', funcName.data);
+  // } catch (e) {
+  //   success('error posting to coderunner service from socket server. e = ', e);
+  // }
+
+  // try {
+  //   // const urlRest = process.env.REST_SERVER_URL; :4990
+  //   const testCases = await axios.get(`http://localhost:3396/testCases/2`);
+  //   // const stdout2 = funcName;
+  //   // console.log('stdout2', stdout2);
+  //   console.log('testCases!!!!!!', testCases.data.rows);
+  // } catch (e) {
+  //   success('error posting to coderunner service from socket server. e = ', e);
+  // }
 };
 
 const clientMessage = async ({ io, room }, payload) => {

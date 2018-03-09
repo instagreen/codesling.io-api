@@ -15,8 +15,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/submit-code', (req, res) => {
+  const fn = req.body.funcName;
+  const inputs = JSON.parse(req.body.testCases[0].input);
+  const outputs = JSON.parse(req.body.testCases[0].output);
+
+  console.log('----',outputs[0], typeof outputs[0]);
+
+  const withInvoc = `${req.body.code} ${fn}(${inputs[0]},${inputs[1]});`;
+  //
   tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
-    writeFile(path, req.body.code, (errWritingFile) => {
+    writeFile(path, withInvoc, (errWritingFile) => {
       if (errWritingFile) {
         res.send(errWritingFile);
       } else {
@@ -27,8 +35,14 @@ app.post('/submit-code', (req, res) => {
             stderrFormatted = stderrFormatted.join('\n');
             res.send(stderrFormatted);
           } else {
-            res.write(JSON.stringify(stdout));
-            res.send();
+            console.log('stdout',stdout);
+            //
+              if (stdout == outputs[0]) {
+                res.write(`-----GREAT JOB!----- \n expected ${fn}(${inputs[0]},${inputs[1]}) to equal ${outputs[0]} \n and got ${stdout}`);
+                res.send();
+              } else {
+                res.send(`-----DISGRACE!----- \n expected ${fn}(${inputs[0]},${inputs[1]}) to equal ${outputs[0]} \n but got ${stdout}`);
+              }
           }
         });
       }

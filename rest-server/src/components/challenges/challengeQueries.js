@@ -1,6 +1,7 @@
 import db from '../../config/database';
 import {
-  addChallengeHelper
+  addChallengeHelper,
+  getChallengeHelper
 } from './challengeSQLHelpers';
 import {
   success,
@@ -15,5 +16,16 @@ export const addChallengeQuery = async (body) => {
     return data;
   } catch (err) {
     error('addChallengeQuery - error= ', err);
+  }
+};
+
+export const getChallengeQuery = async (params) => {
+  try {
+    const queryString = getChallengeHelper(params);
+    const data = await db.queryAsync(queryString);
+    success('getChallengeQuery - successfully getted challenge ', data);
+    return data;
+  } catch (err) {
+    error('getChallengeQuery - error= ', err);
   }
 };

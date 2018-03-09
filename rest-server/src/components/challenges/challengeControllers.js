@@ -1,5 +1,6 @@
 import {
-  addChallengeQuery
+  addChallengeQuery,
+  getChallengeQuery
 } from './challengeQueries';
 import {
   addUserChallengeQuery
@@ -22,6 +23,19 @@ export const addChallengeController = async (req, res) => {
     return res.status(200).send(rows[0]);
   } catch (err) {
     error('addChallengeController - error= ', error);
+    res.status(404).send(err);
+  }
+};
+
+export const getChallengeController = async (req, res) => {
+  
+  try {
+    const data = await getChallengeQuery(req.params);
+    console.log('data from getChallengeController', data.rows[0].title)
+    success('getChallengeController - successfully getted test case ', data);
+    return res.status(200).send(data.rows[0].title);
+  } catch (err) {
+    error('getChallengeController - error= ', error);
     res.status(404).send(err);
   }
 };
