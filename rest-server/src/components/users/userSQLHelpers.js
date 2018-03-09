@@ -5,10 +5,11 @@ export const fetchAllUserHelper = () => {
   `;
 }
 
-export const fetchUserHelper = (user_id) => {
+export const fetchUserHelper = (email) => {
+  console.log('email: ', email);
   return `
-    SELECT id, email, username, password, clout, kdr
+    SELECT id, email, username
     FROM users
-    WHERE id=${user_id}
+    WHERE email LIKE '%${email}%' OR username LIKE '%${email}%'
   `;
 };

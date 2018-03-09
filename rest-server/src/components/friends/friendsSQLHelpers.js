@@ -20,7 +20,7 @@ export const fetchAllFriendsHelper = ({ user_id }) => {
     FROM users AS u
       INNER JOIN friends AS f
       ON (u.id=f.friend_id)
-      WHERE f.user_id=${user_id}
+      WHERE f.user_id=${user_id.replace(' ', '')}
   `;
 };
 
