@@ -30,18 +30,18 @@ app.post('/submit-code', (req, res) => {
       } else {
         execFile('node', [path], (errExecutingFile, stdout, stderr) => {
           if (errExecutingFile) {
-            
             let stderrFormatted = stderr.split('\n');
             stderrFormatted.shift();
             stderrFormatted = stderrFormatted.join('\n');
             res.send(stderrFormatted);
           } else {
+            console.log('stdout',stdout);
             //
               if (stdout == outputs[0]) {
-                res.write(`GREAT JOB! \n expect(${fn}(${inputs[0]},${inputs[1]})).to.equal(${stdout}) \n ${fn}(${inputs[0]},${inputs[1]}) returns ${stdout}`);
+                res.write(`-----GREAT JOB!----- \n expected ${fn}(${inputs[0]},${inputs[1]}) to equal ${outputs[0]} \n and got ${stdout}`);
                 res.send();
               } else {
-                res.send(`PACK YOUR BAGS! \n expect(${fn}(${inputs[0]},${inputs[1]})).to.equal(${outputs[0]}) \n ${fn}(${inputs[0]},${inputs[1]}) returns ${stdout}`);
+                res.send(`-----DISGRACE!----- \n expected ${fn}(${inputs[0]},${inputs[1]}) to equal ${outputs[0]} \n but got ${stdout}`);
               }
           }
         });

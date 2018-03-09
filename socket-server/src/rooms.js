@@ -7,7 +7,9 @@
 // `;
 
 const startingText =
-``;
+`function nameOfFunc() {
+  console.log();
+}`;
 
 const getFuncName = async () => {
   // try {
