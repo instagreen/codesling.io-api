@@ -28,10 +28,12 @@ export const addChallengeController = async (req, res) => {
 };
 
 export const getChallengeController = async (req, res) => {
+  
   try {
     const data = await getChallengeQuery(req.params);
+    console.log('data from getChallengeController', data.rows[0].title)
     success('getChallengeController - successfully getted test case ', data);
-    return res.status(200).send(data);
+    return res.status(200).send(data.rows[0].title);
   } catch (err) {
     error('getChallengeController - error= ', error);
     res.status(404).send(err);

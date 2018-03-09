@@ -12,4 +12,5 @@ router.route('/')
 
 router.route('/:challenge_id')
   .get(getChallengeController);
+  
 export default router;
