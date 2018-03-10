@@ -7,6 +7,7 @@ import {
   serverLeave,
   serverRun,
   serverMessage,
+  serverReceivedMsg,
 } from './serverEvents';
 
 /**
@@ -88,12 +89,21 @@ const clientMessage = async ({ io, room }, payload) => {
   }
 };
 
+const clientSendMsg = ({ io, room }, payload) => {
+  // const {msg, msgSender} = payload;
+  console.log('wooooooooooow', payload);
+  success('clientSendMsg heard. payload.text = ', payload);
+  serverReceivedMsg({ io, room }, payload);
+};
+
 const clientEmitters = {
   'client.ready': clientReady,
   'client.update': clientUpdate,
   'client.disconnect': clientDisconnect,
   'client.run': clientRun,
   'client.message': clientMessage,
+  'client.sendMsg': clientSendMsg,
+
 };
 
 export default clientEmitters;

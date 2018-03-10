@@ -46,3 +46,10 @@ export const serverMessage = ({ io, room }, message) => {
     .in(room.get('id'))
     .emit('server.message', message);
 };
+
+export const serverReceivedMsg = ({ io, room }, payload) => {
+  console.log('server.msgReceived !!!!!!', payload);
+  io
+    .in(room.get('id'))
+    .emit('server.msgReceived', payload);
+};
